@@ -791,6 +791,13 @@ jobs:
             echo "正在打susfs补丁"
             patch -p1 < 50_add_susfs_in_gki-${{ env.KANDROID_VERSION }}-${{ env.KERNEL_VERSION }}.patch || true
             echo "susfs_patch完成"
+            # 修复 AS_FLAGS_SUS_MAP 和 susfs_is_current_proc_umounted_app 未声明错误
+            if [ -f ./fs/proc/base.c ]; then
+                # 确保包含 linux/susfs.h
+                if ! grep -q '#include <linux/susfs.h>' ./fs/proc/base.c; then
+                    sed -i '/#include <linux\/cpufreq_times.h>/a #include <linux\/susfs.h>' ./fs/proc/base.c
+                fi
+            fi
 
             # Revert
             if [ "$fake_patched" = 1 ]; then
