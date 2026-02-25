@@ -4,6 +4,9 @@
  
 <img align="right" src="pic/zakozako~.svg" width="100px" alt="zakozako~">
  
+# 修改
+不知道是哪里的问题，`susfs_def.h`没有在`fs/proc/base.c`中被引用，会导致编译失败，这边特意加了一个判断
+
 # Action-Build
 **```Build Kernels for All OnePlus Devices```**
 >更高效 更全面 更快速 更稳定
