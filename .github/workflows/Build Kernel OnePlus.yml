@@ -633,6 +633,15 @@ jobs:
             else
               echo "SUSFS_META 为空，使用最新上游 SUSFS"
             fi
+            if [ -f ./fs/proc/base.c ]; then
+                # 确保包含 linux/susfs.h
+                if ! grep -q '#include <linux/susfs.h>' ./fs/proc/base.c; then
+                    sed -i '/#include <linux\/cpufreq_times.h>/a #include <linux\/susfs.h>' ./fs/proc/base.c
+                fi
+                if ! grep -q '#include <linux/susfs_def.h>' ./fs/proc/base.c; then
+                    sed -i '/#include <linux\/susfs.h>/a #include <linux\/susfs_def.h>' ./fs/proc/base.c
+                fi
+            fi
             cd ..
           fi
           git clone https://github.com/ShirkNeko/SukiSU_patch.git
