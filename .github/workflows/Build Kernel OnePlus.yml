@@ -797,6 +797,9 @@ jobs:
                 if ! grep -q '#include <linux/susfs.h>' ./fs/proc/base.c; then
                     sed -i '/#include <linux\/cpufreq_times.h>/a #include <linux\/susfs.h>' ./fs/proc/base.c
                 fi
+                if ! grep -q '#include <linux/susfs_def.h>' ./fs/proc/base.c; then
+                    sed -i '/#include <linux\/susfs_def.h>' ./fs/proc/base.c
+                fi
             fi
 
             # Revert
